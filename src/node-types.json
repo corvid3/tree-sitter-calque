@@ -1,6 +1,6 @@
 [
   {
-    "type": "apply",
+    "type": "application",
     "named": true,
     "fields": {},
     "children": {
@@ -8,11 +8,11 @@
       "required": true,
       "types": [
         {
-          "type": "apply",
+          "type": "application",
           "named": true
         },
         {
-          "type": "concat",
+          "type": "concatenation",
           "named": true
         },
         {
@@ -23,7 +23,7 @@
     }
   },
   {
-    "type": "concat",
+    "type": "concatenation",
     "named": true,
     "fields": {},
     "children": {
@@ -31,11 +31,15 @@
       "required": true,
       "types": [
         {
-          "type": "concat",
+          "type": "concatenation",
           "named": true
         },
         {
           "type": "factor",
+          "named": true
+        },
+        {
+          "type": "operator",
           "named": true
         }
       ]
@@ -50,7 +54,7 @@
       "required": true,
       "types": [
         {
-          "type": "expr",
+          "type": "expression",
           "named": true
         },
         {
@@ -65,7 +69,7 @@
     }
   },
   {
-    "type": "expr",
+    "type": "expression",
     "named": true,
     "fields": {},
     "children": {
@@ -73,7 +77,7 @@
       "required": true,
       "types": [
         {
-          "type": "apply",
+          "type": "application",
           "named": true
         }
       ]
@@ -131,19 +135,20 @@
           "named": true
         },
         {
-          "type": "expr",
+          "type": "expression",
           "named": true
         }
       ]
     }
   },
   {
-    "type": ",",
+    "type": "=",
     "named": false
   },
   {
-    "type": "=",
-    "named": false
+    "type": "comment",
+    "named": true,
+    "extra": true
   },
   {
     "type": "ident",
@@ -155,6 +160,10 @@
   },
   {
     "type": "number",
+    "named": true
+  },
+  {
+    "type": "operator",
     "named": true
   },
   {

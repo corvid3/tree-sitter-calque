@@ -9,23 +9,26 @@
 
 module.exports = grammar({
   name: "calque",
+  extras: ($) => [$.comment, /\s/],
 
   rules: {
     // TODO: add the actual grammar rules
     source_file: $ => repeat($.toplevel),
-    toplevel: $ => choice($.decl, $.expr),
+    toplevel: $ => choice($.decl, $.expression),
 
     let_tok: $ => token('let'),
-    decl: $ => seq($.let_tok, $.ident, '=', $.expr),
+    decl: $ => seq($.let_tok, $.ident, '=', $.expression),
 
-    expr: $ => seq($.apply, /.*\./),
-    apply: $ => prec(1, choice(
+    expression: $ => seq($.application, /.*\./),
+
+    application: $ => prec(1, choice(
       $.factor,
-      $.concat,
-      seq($.apply, /\ +/, $.factor),
+      $.concatenation,
+      seq($.application, /\ +/, $.factor),
     )),
-    concat: $ => prec(2, choice(
-      seq($.concat, ',', $.factor),
+
+    concatenation: $ => prec(2, choice(
+      seq($.concatenation, alias(',', $.operator), $.factor),
       $.factor,
     )),
     factor: $ => prec(3, choice($.number, $.ident, $.string)),
@@ -33,5 +36,7 @@ module.exports = grammar({
     number: $ => /\d+/,
     ident: $ => /\w/,
     string: $ => /\".*\"/,
+
+    comment: ($) => token(/#.*/),
   }
 });

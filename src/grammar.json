@@ -18,7 +18,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "expr"
+          "name": "expression"
         }
       ]
     },
@@ -46,16 +46,16 @@
         },
         {
           "type": "SYMBOL",
-          "name": "expr"
+          "name": "expression"
         }
       ]
     },
-    "expr": {
+    "expression": {
       "type": "SEQ",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "apply"
+          "name": "application"
         },
         {
           "type": "PATTERN",
@@ -63,7 +63,7 @@
         }
       ]
     },
-    "apply": {
+    "application": {
       "type": "PREC",
       "value": 1,
       "content": {
@@ -75,14 +75,14 @@
           },
           {
             "type": "SYMBOL",
-            "name": "concat"
+            "name": "concatenation"
           },
           {
             "type": "SEQ",
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "apply"
+                "name": "application"
               },
               {
                 "type": "PATTERN",
@@ -97,7 +97,7 @@
         ]
       }
     },
-    "concat": {
+    "concatenation": {
       "type": "PREC",
       "value": 2,
       "content": {
@@ -108,11 +108,16 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "concat"
+                "name": "concatenation"
               },
               {
-                "type": "STRING",
-                "value": ","
+                "type": "ALIAS",
+                "content": {
+                  "type": "STRING",
+                  "value": ","
+                },
+                "named": true,
+                "value": "operator"
               },
               {
                 "type": "SYMBOL",
@@ -159,9 +164,20 @@
     "string": {
       "type": "PATTERN",
       "value": "\\\".*\\\""
+    },
+    "comment": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "#.*"
+      }
     }
   },
   "extras": [
+    {
+      "type": "SYMBOL",
+      "name": "comment"
+    },
     {
       "type": "PATTERN",
       "value": "\\s"
