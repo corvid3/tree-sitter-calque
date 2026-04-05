@@ -1,0 +1,38 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "calque",
+      "camelcase": "Calque",
+      "title": "Calque",
+      "scope": "source.calque",
+      "file-types": [
+        "clq"
+      ],
+      "injection-regex": "^calque$",
+      "class-name": "TreeSitterCalque"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "syntax highlighting tree-sitter for calque",
+    "authors": [
+      {
+        "name": "crow"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/corvid3/tree-sitter-calque.git"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
+  }
+}
