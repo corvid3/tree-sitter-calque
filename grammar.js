@@ -9,34 +9,46 @@
 
 module.exports = grammar({
   name: "calque",
-  extras: ($) => [$.comment, /\s/],
+  extras: ($) => [$.comment, /\s/, $.operators],
 
   rules: {
-    // TODO: add the actual grammar rules
     source_file: $ => repeat($.toplevel),
-    toplevel: $ => choice($.decl, $.expression),
+    toplevel: $ => choice($.requires, $.method, $.decl, $.statement),
 
-    let_tok: $ => token('let'),
-    decl: $ => seq($.let_tok, $.ident, '=', $.expression),
+    requires: $ => seq('requires', $.string),
 
-    expression: $ => seq($.application, /.*\./),
+    method: $ => seq('method', $.ident, repeat1($.method_param), '->', $.statement, 'in'),
+    method_param: $ => seq('(', $.ident, alias($.ident, $.type), ')'),
+    decl: $ => prec(0, seq('let', $.ident, '=', $.statement, 'in')),
 
-    application: $ => prec(1, choice(
-      $.factor,
-      $.concatenation,
-      seq($.application, /\ +/, $.factor),
+    statement: $ => prec.right(1, choice($.let, $.if, $.expression)),
+    let: $ => seq('let', $.ident, '=', $.expression, 'in', $.statement),
+    if: $ => seq('if', $.expression, 'then', $.statement, 'else', $.statement),
+
+    expression: $ =>  choice($.tuple, $.application, $.concatenation, $.lambda, $.new,
+      $.ident, $.number, $.string),
+
+    lambda: $ => seq('\\', optional(repeat($.ident)), '->', $.statement),
+
+    tuple: $ => seq('{', optional($.statement), '}'),
+
+    application: $ => prec.right(3, choice(
+      seq($.expression, alias($.ident, $.function)),
+      seq($.expression, $.expression),
     )),
 
-    concatenation: $ => prec(2, choice(
-      seq($.concatenation, alias(',', $.operator), $.factor),
-      $.factor,
-    )),
-    factor: $ => prec(3, choice($.number, $.ident, $.string)),
+    concatenation: $ => prec.right(4, 
+      seq($.expression, ',', $.expression),
+    ),
 
-    number: $ => /\d+/,
-    ident: $ => /\w/,
-    string: $ => /\".*\"/,
+    new_pair: $ => seq($.ident, ':', $.expression),
+    new: $ => seq('new', $.ident, '(', repeat($.new_pair), ')'),
+
+    number: ($) => seq(/[+-]?[0-9]+/, token.immediate(optional(/\.[0-9]+/))),
+    ident: ($) => /[a-zA-Z][-\w]*/,
+    string: ($) => /\".*\"/,
 
     comment: ($) => token(/#.*/),
+    operators: ($) => choice(';', '+', '-', '*', '/', '$'),
   }
 });

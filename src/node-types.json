@@ -8,15 +8,11 @@
       "required": true,
       "types": [
         {
-          "type": "application",
+          "type": "expression",
           "named": true
         },
         {
-          "type": "concatenation",
-          "named": true
-        },
-        {
-          "type": "factor",
+          "type": "function",
           "named": true
         }
       ]
@@ -31,15 +27,7 @@
       "required": true,
       "types": [
         {
-          "type": "concatenation",
-          "named": true
-        },
-        {
-          "type": "factor",
-          "named": true
-        },
-        {
-          "type": "operator",
+          "type": "expression",
           "named": true
         }
       ]
@@ -54,15 +42,11 @@
       "required": true,
       "types": [
         {
-          "type": "expression",
-          "named": true
-        },
-        {
           "type": "ident",
           "named": true
         },
         {
-          "type": "let_tok",
+          "type": "statement",
           "named": true
         }
       ]
@@ -79,16 +63,63 @@
         {
           "type": "application",
           "named": true
+        },
+        {
+          "type": "concatenation",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "lambda",
+          "named": true
+        },
+        {
+          "type": "new",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "tuple",
+          "named": true
         }
       ]
     }
   },
   {
-    "type": "factor",
+    "type": "if",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "lambda",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -96,9 +127,134 @@
           "named": true
         },
         {
-          "type": "number",
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "let",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
           "named": true
         },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "method",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "method_param",
+          "named": true
+        },
+        {
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "method_param",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "new",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "new_pair",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "new_pair",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "number",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "operators",
+    "named": true,
+    "extra": true,
+    "fields": {}
+  },
+  {
+    "type": "requires",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
         {
           "type": "string",
           "named": true
@@ -123,6 +279,29 @@
     }
   },
   {
+    "type": "statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "if",
+          "named": true
+        },
+        {
+          "type": "let",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "toplevel",
     "named": true,
     "fields": {},
@@ -135,14 +314,85 @@
           "named": true
         },
         {
-          "type": "expression",
+          "type": "method",
+          "named": true
+        },
+        {
+          "type": "requires",
+          "named": true
+        },
+        {
+          "type": "statement",
           "named": true
         }
       ]
     }
   },
   {
+    "type": "tuple",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "$",
+    "named": false
+  },
+  {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
+    "type": "*",
+    "named": false
+  },
+  {
+    "type": "+",
+    "named": false
+  },
+  {
+    "type": ",",
+    "named": false
+  },
+  {
+    "type": "-",
+    "named": false
+  },
+  {
+    "type": "->",
+    "named": false
+  },
+  {
+    "type": "/",
+    "named": false
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": ";",
+    "named": false
+  },
+  {
     "type": "=",
+    "named": false
+  },
+  {
+    "type": "\\",
     "named": false
   },
   {
@@ -151,23 +401,59 @@
     "extra": true
   },
   {
+    "type": "else",
+    "named": false
+  },
+  {
+    "type": "function",
+    "named": true
+  },
+  {
     "type": "ident",
     "named": true
   },
   {
-    "type": "let_tok",
-    "named": true
+    "type": "if",
+    "named": false
   },
   {
-    "type": "number",
-    "named": true
+    "type": "in",
+    "named": false
   },
   {
-    "type": "operator",
-    "named": true
+    "type": "let",
+    "named": false
+  },
+  {
+    "type": "method",
+    "named": false
+  },
+  {
+    "type": "new",
+    "named": false
+  },
+  {
+    "type": "requires",
+    "named": false
   },
   {
     "type": "string",
     "named": true
+  },
+  {
+    "type": "then",
+    "named": false
+  },
+  {
+    "type": "type",
+    "named": true
+  },
+  {
+    "type": "{",
+    "named": false
+  },
+  {
+    "type": "}",
+    "named": false
   }
 ]

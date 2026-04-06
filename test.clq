@@ -1,0 +1,41 @@
+# comment test
+# arstarstineoasf
+# let m = \x y ->
+# 	let s = x, y + in
+# 	2, 3 +, s * display
+# in
+
+requires "another_file.clq"
+
+let add2 =
+	\val -> $ 2 +
+in
+
+method someMethod (x Integer) ->
+	x, 2 + display
+in
+
+method someMethod (x Float) ->
+	x, 3.0 + display
+in
+
+method someMethod (x Integer) (y Integer) ->
+	x, y + display
+in
+
+let add3 =
+	\val -> $ 3 +
+in
+
+let select = \s ->
+	if s, 1 == then add2 else add3
+in
+
+let y = \a ->
+	let m =
+		\val -> let f = 1 select in m f
+	in
+	some-list, m map
+in
+
+"hello, world!" display;
