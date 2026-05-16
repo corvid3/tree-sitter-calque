@@ -1,11 +1,13 @@
-# comment test
-# arstarstineoasf
-# let m = \x y ->
-# 	let s = x, y + in
-# 	2, 3 +, s * display
-# in
-
 requires "another_file.clq"
+
+let m = \x y ->
+	let s = x, y + in
+	2, 3 +, s * display
+in
+
+type Player -> Entity Damagable in
+type Foobar -> Foo Bar Baz in
+
 
 let add2 =
 	\val -> $ 2 +
@@ -23,12 +25,21 @@ method someMethod (x Integer) (y Integer) ->
 	x, y + display
 in
 
+method someMethod (... Any) ->
+
 let add3 =
 	\val -> $ 3 +
 in
 
+let m = \y -> 2 transform. in
+m transform
+"hello, world!" display;
+2, 3 add display.
+
 let select = \s ->
-	if s, 1 == then add2 else add3
+	if s, 1 eq
+	then add2
+	else add3
 in
 
 let y = \a ->
@@ -38,4 +49,15 @@ let y = \a ->
 	some-list, m map
 in
 
-"hello, world!" display;
+
+type Player -> Entity in
+type Crate -> Entity in
+
+method DoThing (ent Entity) ->
+	ent 10 ?Damage
+in
+
+method Damage (player Player) (val Number) ->
+	player:health val - set! player:health
+in
+
